@@ -13,92 +13,153 @@
         <p class="eyebrow">GYEONHYU CHINESE</p>
         <h1>문장으로 외우는 중국어</h1>
       </div>
-      <button id="soundToggle" class="icon-btn" aria-label="소리 켜기">🔊</button>
+      <div class="top-actions">
+        <button id="makerBtn" class="maker-btn" type="button">＋ 문제 만들기</button>
+        <button id="soundToggle" class="icon-btn" aria-label="소리 끄기">🔊</button>
+      </div>
     </header>
 
-    <section class="stats">
-      <div><span>진도</span><strong id="progressText">1 / 10</strong></div>
-      <div><span>연속 정답</span><strong id="comboText">0</strong></div>
-      <div><span>정답률</span><strong id="accuracyText">0%</strong></div>
+    <section id="studyView">
+      <section class="stats">
+        <div><span>진도</span><strong id="progressText">1 / 10</strong></div>
+        <div><span>연속 정답</span><strong id="comboText">0</strong></div>
+        <div><span>정답률</span><strong id="accuracyText">0%</strong></div>
+      </section>
+
+      <div class="progress-track" aria-hidden="true">
+        <div id="progressBar"></div>
+      </div>
+
+      <section id="quiz" class="card">
+        <div class="question-meta">
+          <span class="mode-badge">문장 속 단어 맞히기</span>
+          <span id="levelBadge" class="level-badge">기초</span>
+        </div>
+
+        <div class="example-block">
+          <p class="label">한국어 예문</p>
+          <p id="koSentence" class="ko-sentence">나는 매일 중국어를 공부해.</p>
+        </div>
+
+        <div class="example-block chinese-block">
+          <p class="label">중국어로 완성해 보세요</p>
+          <p id="zhSentence" class="zh-sentence">
+            <span id="zhBefore">我每天</span><span id="blankWord" class="blank-word">□□</span><span id="zhAfter">中文。</span>
+          </p>
+          <p id="sentencePinyin" class="sentence-pinyin hidden"></p>
+        </div>
+
+        <form id="answerForm" class="answer-form">
+          <input id="answerInput" autocomplete="off" autocapitalize="off" spellcheck="false"
+            placeholder="빈칸에 들어갈 중국어 단어" aria-label="정답 중국어 단어 입력" />
+          <button id="submitBtn" type="submit">확인</button>
+        </form>
+
+        <div class="helper-row">
+          <button id="hintBtn" class="helper-btn" type="button">병음 힌트</button>
+          <button id="giveUpBtn" class="helper-btn danger" type="button">정답 보기</button>
+        </div>
+
+        <div id="hintText" class="hint-text hidden"></div>
+        <div id="feedback" class="feedback hidden" aria-live="polite"></div>
+
+        <div id="answerDetail" class="answer-detail hidden">
+          <div><span class="detail-label">핵심 단어</span><strong id="answerWord"></strong></div>
+          <div><span class="detail-label">병음</span><strong id="answerPinyin"></strong></div>
+          <div><span class="detail-label">뜻</span><strong id="answerMeaning"></strong></div>
+        </div>
+
+        <div class="after-actions">
+          <button id="speakBtn" class="speak-btn hidden" type="button">🔊 완성 문장 듣기</button>
+          <button id="nextBtn" class="next-btn hidden" type="button">다음 문장 →</button>
+        </div>
+      </section>
+
+      <section class="session-note">
+        <span>💡</span>
+        <p>직접 만든 문제도 기본 문제와 함께 출제돼요.</p>
+      </section>
+
+      <section id="result" class="card result hidden">
+        <div class="result-icon">完成</div>
+        <h2>오늘 학습 완료</h2>
+        <p id="resultSummary"></p>
+        <div class="result-actions">
+          <button id="reviewBtn" class="primary">오답 다시 학습</button>
+          <button id="restartBtn" class="secondary">새 학습 시작</button>
+        </div>
+      </section>
     </section>
 
-    <div class="progress-track" aria-hidden="true">
-      <div id="progressBar"></div>
-    </div>
-
-    <section id="quiz" class="card">
-      <div class="question-meta">
-        <span class="mode-badge">문장 속 단어 맞히기</span>
-        <span id="levelBadge" class="level-badge">기초</span>
-      </div>
-
-      <div class="example-block">
-        <p class="label">한국어 예문</p>
-        <p id="koSentence" class="ko-sentence">나는 매일 중국어를 공부해.</p>
-      </div>
-
-      <div class="example-block chinese-block">
-        <p class="label">중국어로 완성해 보세요</p>
-        <p id="zhSentence" class="zh-sentence">
-          <span id="zhBefore">我每天</span><span id="blankWord" class="blank-word">□□</span><span id="zhAfter">中文。</span>
-        </p>
-        <p id="sentencePinyin" class="sentence-pinyin hidden"></p>
-      </div>
-
-      <form id="answerForm" class="answer-form">
-        <input
-          id="answerInput"
-          autocomplete="off"
-          autocapitalize="off"
-          spellcheck="false"
-          placeholder="빈칸에 들어갈 중국어 단어"
-          aria-label="정답 중국어 단어 입력"
-        />
-        <button id="submitBtn" type="submit">확인</button>
-      </form>
-
-      <div class="helper-row">
-        <button id="hintBtn" class="helper-btn" type="button">병음 힌트</button>
-        <button id="giveUpBtn" class="helper-btn danger" type="button">정답 보기</button>
-      </div>
-
-      <div id="hintText" class="hint-text hidden"></div>
-      <div id="feedback" class="feedback hidden" aria-live="polite"></div>
-
-      <div id="answerDetail" class="answer-detail hidden">
+    <section id="makerView" class="hidden">
+      <div class="maker-heading">
         <div>
-          <span class="detail-label">핵심 단어</span>
-          <strong id="answerWord"></strong>
+          <p class="eyebrow">MY SENTENCE LAB</p>
+          <h2>나만의 문제 만들기</h2>
+          <p>완성 문장 속에서 외우고 싶은 단어 하나를 골라 주세요.</p>
         </div>
-        <div>
-          <span class="detail-label">병음</span>
-          <strong id="answerPinyin"></strong>
-        </div>
-        <div>
-          <span class="detail-label">뜻</span>
-          <strong id="answerMeaning"></strong>
-        </div>
+        <button id="backToStudyBtn" class="secondary" type="button">← 학습으로</button>
       </div>
 
-      <div class="after-actions">
-        <button id="speakBtn" class="speak-btn hidden" type="button">🔊 완성 문장 듣기</button>
-        <button id="nextBtn" class="next-btn hidden" type="button">다음 문장 →</button>
-      </div>
-    </section>
+      <section class="card maker-card">
+        <form id="makerForm" novalidate>
+          <input id="editingId" type="hidden">
+          <div class="form-grid">
+            <label class="field field-wide">
+              <span>한국어 예문 <em>필수</em></span>
+              <input id="makerKo" required placeholder="예: 나는 매일 중국어를 공부해.">
+            </label>
+            <label class="field field-wide">
+              <span>중국어 완성 문장 <em>필수</em></span>
+              <input id="makerZh" required lang="zh-CN" placeholder="예: 我每天学习中文。">
+            </label>
+            <label class="field">
+              <span>정답 단어 <em>필수</em></span>
+              <input id="makerAnswer" required lang="zh-CN" placeholder="예: 学习">
+            </label>
+            <label class="field">
+              <span>단어 병음 <em>필수</em></span>
+              <input id="makerPinyin" required placeholder="예: xuéxí">
+            </label>
+            <label class="field">
+              <span>단어 뜻 <em>필수</em></span>
+              <input id="makerMeaning" required placeholder="예: 공부하다, 배우다">
+            </label>
+            <label class="field">
+              <span>난이도</span>
+              <select id="makerLevel">
+                <option>기초</option><option>초급</option><option>중급</option><option>고급</option>
+              </select>
+            </label>
+            <label class="field field-wide">
+              <span>문장 전체 병음 <small>선택</small></span>
+              <input id="makerSentencePinyin" placeholder="예: Wǒ měitiān xuéxí Zhōngwén.">
+            </label>
+          </div>
 
-    <section class="session-note">
-      <span>💡</span>
-      <p>한국어 문맥을 먼저 이해한 뒤, 중국어 문장의 핵심 단어를 떠올려 보세요.</p>
-    </section>
+          <div class="preview-box">
+            <span class="label">빈칸 미리보기</span>
+            <p id="makerPreview" class="preview-sentence">중국어 문장과 정답 단어를 입력하면 미리보기가 나타나요.</p>
+          </div>
+          <p id="makerMessage" class="maker-message" aria-live="polite"></p>
+          <div class="form-actions">
+            <button id="cancelEditBtn" class="secondary hidden" type="button">수정 취소</button>
+            <button id="saveQuestionBtn" class="primary" type="submit">문제 저장</button>
+          </div>
+        </form>
+      </section>
 
-    <section id="result" class="card result hidden">
-      <div class="result-icon">完成</div>
-      <h2>오늘 학습 완료</h2>
-      <p id="resultSummary"></p>
-      <div class="result-actions">
-        <button id="reviewBtn" class="primary">오답 다시 학습</button>
-        <button id="restartBtn" class="secondary">새 학습 시작</button>
-      </div>
+      <section class="library-section">
+        <div class="library-heading">
+          <div><h2>내가 만든 문제</h2><span id="customCount" class="count-badge">0개</span></div>
+          <button id="studyCustomBtn" class="primary" type="button">내 문제만 학습</button>
+        </div>
+        <div id="customList" class="custom-list"></div>
+        <div id="emptyCustom" class="empty-custom">
+          <strong>아직 만든 문제가 없어요.</strong>
+          <p>위 양식을 채워 첫 중국어 문장 문제를 만들어 보세요.</p>
+        </div>
+      </section>
     </section>
   </main>
 
