@@ -3,54 +3,97 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gyeonhyu · 중국어 단어 학습</title>
+  <title>Gyeonhyu · 중국어 문장 단어 학습</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="app">
     <header class="topbar">
       <div>
-        <p class="eyebrow">GYEONHYU LANGUAGE</p>
-        <h1>중국어 단어 학습</h1>
+        <p class="eyebrow">GYEONHYU CHINESE</p>
+        <h1>문장으로 외우는 중국어</h1>
       </div>
       <button id="soundToggle" class="icon-btn" aria-label="소리 켜기">🔊</button>
     </header>
 
     <section class="stats">
-      <div><span>진도</span><strong id="progressText">0 / 10</strong></div>
-      <div><span>콤보</span><strong id="comboText">0</strong></div>
+      <div><span>진도</span><strong id="progressText">1 / 10</strong></div>
+      <div><span>연속 정답</span><strong id="comboText">0</strong></div>
       <div><span>정답률</span><strong id="accuracyText">0%</strong></div>
     </section>
 
-    <div class="progress-track"><div id="progressBar"></div></div>
+    <div class="progress-track" aria-hidden="true">
+      <div id="progressBar"></div>
+    </div>
 
     <section id="quiz" class="card">
       <div class="question-meta">
-        <span id="questionType">중국어 → 한국어</span>
-        <button id="speakBtn" class="speak-btn" title="발음 듣기">🔊 듣기</button>
+        <span class="mode-badge">문장 속 단어 맞히기</span>
+        <span id="levelBadge" class="level-badge">기초</span>
       </div>
-      <div id="prompt" class="prompt">你好</div>
-      <div id="pinyin" class="pinyin">nǐ hǎo</div>
 
-      <div id="answers" class="answers"></div>
+      <div class="example-block">
+        <p class="label">한국어 예문</p>
+        <p id="koSentence" class="ko-sentence">나는 매일 중국어를 공부해.</p>
+      </div>
 
-      <form id="typingForm" class="typing-form hidden">
-        <input id="typingInput" autocomplete="off" placeholder="정답을 입력하세요" />
-        <button>확인</button>
+      <div class="example-block chinese-block">
+        <p class="label">중국어로 완성해 보세요</p>
+        <p id="zhSentence" class="zh-sentence">
+          <span id="zhBefore">我每天</span><span id="blankWord" class="blank-word">□□</span><span id="zhAfter">中文。</span>
+        </p>
+        <p id="sentencePinyin" class="sentence-pinyin hidden"></p>
+      </div>
+
+      <form id="answerForm" class="answer-form">
+        <input
+          id="answerInput"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          placeholder="빈칸에 들어갈 중국어 단어"
+          aria-label="정답 중국어 단어 입력"
+        />
+        <button id="submitBtn" type="submit">확인</button>
       </form>
 
-      <div id="feedback" class="feedback" aria-live="polite"></div>
-      <button id="nextBtn" class="next-btn hidden">다음 문제 →</button>
+      <div class="helper-row">
+        <button id="hintBtn" class="helper-btn" type="button">병음 힌트</button>
+        <button id="giveUpBtn" class="helper-btn danger" type="button">정답 보기</button>
+      </div>
+
+      <div id="hintText" class="hint-text hidden"></div>
+      <div id="feedback" class="feedback hidden" aria-live="polite"></div>
+
+      <div id="answerDetail" class="answer-detail hidden">
+        <div>
+          <span class="detail-label">핵심 단어</span>
+          <strong id="answerWord"></strong>
+        </div>
+        <div>
+          <span class="detail-label">병음</span>
+          <strong id="answerPinyin"></strong>
+        </div>
+        <div>
+          <span class="detail-label">뜻</span>
+          <strong id="answerMeaning"></strong>
+        </div>
+      </div>
+
+      <div class="after-actions">
+        <button id="speakBtn" class="speak-btn hidden" type="button">🔊 완성 문장 듣기</button>
+        <button id="nextBtn" class="next-btn hidden" type="button">다음 문장 →</button>
+      </div>
     </section>
 
     <section class="session-note">
       <span>💡</span>
-      <p>틀린 단어는 세션 마지막에 다시 풀 수 있어요.</p>
+      <p>한국어 문맥을 먼저 이해한 뒤, 중국어 문장의 핵심 단어를 떠올려 보세요.</p>
     </section>
 
     <section id="result" class="card result hidden">
-      <div class="result-icon">🎉</div>
-      <h2>학습 완료!</h2>
+      <div class="result-icon">完成</div>
+      <h2>오늘 학습 완료</h2>
       <p id="resultSummary"></p>
       <div class="result-actions">
         <button id="reviewBtn" class="primary">오답 다시 학습</button>
@@ -58,6 +101,7 @@
       </div>
     </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>
